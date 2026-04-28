@@ -1,0 +1,179 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* Background grid */
+.loading-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(108, 99, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 99, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Ambient glows */
+.loading-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.loading-glow--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.18) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  animation: glow-pulse 3s ease-in-out infinite alternate;
+}
+
+.loading-glow--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -30%);
+  animation: glow-pulse 3s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.6; transform: translate(-50%, -60%) scale(1); }
+  to   { opacity: 1;   transform: translate(-50%, -60%) scale(1.15); }
+}
+
+/* Content */
+.loading-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo wrapper with rings */
+.loading-logo-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+}
+
+.loading-logo-ring--outer {
+  width: 140px;
+  height: 140px;
+  border-color: rgba(108, 99, 255, 0.35);
+  animation: ring-spin 3s linear infinite;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(108, 99, 255, 0.6) 30%,
+    transparent 60%
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), white calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), white calc(100% - 1.5px));
+}
+
+.loading-logo-ring--inner {
+  width: 112px;
+  height: 112px;
+  border-color: rgba(6, 182, 212, 0.3);
+  animation: ring-spin 2s linear infinite reverse;
+  background: conic-gradient(
+    from 180deg,
+    transparent 0%,
+    rgba(6, 182, 212, 0.5) 30%,
+    transparent 60%
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), white calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), white calc(100% - 1.5px));
+}
+
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.loading-logo-icon {
+  animation: logo-breathe 2s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 12px rgba(108, 99, 255, 0.5)); }
+  50%       { transform: scale(1.06); filter: drop-shadow(0 0 24px rgba(108, 99, 255, 0.9)); }
+}
+
+/* Company name under logo */
+.loading-company {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #6c63ff, #a78bfa, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Progress bar */
+.loading-bar-track {
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6c63ff, #a78bfa, #06b6d4);
+  border-radius: 99px;
+  animation: bar-fill 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bar-fill {
+  0%   { width: 0%; }
+  40%  { width: 55%; }
+  70%  { width: 78%; }
+  90%  { width: 90%; }
+  100% { width: 100%; }
+}
+
+/* Loading label */
+.loading-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.7; }
+}
